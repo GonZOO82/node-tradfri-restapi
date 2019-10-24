@@ -1,0 +1,84 @@
+{
+  "name": "Led",
+  "type": "virtual_device",
+  "properties": {
+    "deviceIcon": 1001,
+    "categories": "[\"other\"]",
+    "currentIcon": "1001",
+    "log": "",
+    "logTemp": "",
+    "mainLoop": "local device = fibaro:getSelfId();\nlocal ipaddress = fibaro:getValue(device, \"IPAddress\");\nlocal port = fibaro:getValue(device, \"TCPPort\");\n\nFIBARO = Net.FHttp(ipaddress, port);\n\nlocal tradfriDeviceId = 65537;\n\nresponse = FIBARO:GET(\"/tradfri/device/\" .. tradfriDeviceId);\nresponse = json.decode(response);\n\nfibaro:call(device, \"setProperty\", \"ui.Slider1.value\", math.floor(response[\"item\"][\"brightness\"] / 2.55))\n",
+    "ui.Slider1.value": 19,
+    "visible": "true",
+    "rows": [
+      {
+        "type": "button",
+        "elements": [
+          {
+            "id": 1,
+            "lua": true,
+            "waitForResponse": false,
+            "caption": "On",
+            "name": "Button11",
+            "empty": false,
+            "msg": "local device = fibaro:getSelfId();\nlocal ipaddress = fibaro:getValue(device, \"IPAddress\");\nlocal port = fibaro:getValue(device, \"TCPPort\");\n\nFIBARO = Net.FHttp(ipaddress, port);\n\nlocal tradfriDeviceId = 65537;\n\nresponse = FIBARO:GET(\"/tradfri/device/\" .. tradfriDeviceId .. \"/on\");\n",
+            "buttonIcon": 1002,
+            "favourite": false,
+            "main": false
+          },
+          {
+            "id": 2,
+            "lua": true,
+            "waitForResponse": false,
+            "caption": "Off",
+            "name": "Button12",
+            "empty": false,
+            "msg": "local device = fibaro:getSelfId();\nlocal ipaddress = fibaro:getValue(device, \"IPAddress\");\nlocal port = fibaro:getValue(device, \"TCPPort\");\n\nFIBARO = Net.FHttp(ipaddress, port);\n\nlocal tradfriDeviceId = 65537;\n\nresponse = FIBARO:GET(\"/tradfri/device/\" .. tradfriDeviceId .. \"/off\");\n",
+            "buttonIcon": 1004,
+            "favourite": false,
+            "main": false
+          }
+        ]
+      },
+      {
+        "type": "slider",
+        "elements": [
+          {
+            "id": 3,
+            "lua": true,
+            "waitForResponse": false,
+            "caption": "Brightness",
+            "name": "Slider1",
+            "msg": "local device = fibaro:getSelfId();\nlocal ipaddress = fibaro:getValue(device, \"IPAddress\");\nlocal port = fibaro:getValue(device, \"TCPPort\");\n\nFIBARO = Net.FHttp(ipaddress, port);\n\nlocal tradfriDeviceId = 65537;\n\nlocal state = \"on\";\nlocal sliderValue = fibaro:getValue(device, \"ui.Slider1.value\");\n\nhueBrightness = math.floor(sliderValue * 2.55)\n\nif (sliderValue == 0) then\n\tlocal state = \"on\";\nend;\n\nresponse = FIBARO:GET(\"/tradfri/device/65537/\" .. state .. \"?brightness=\" .. hueBrightness);\n",
+            "buttonIcon": 1003,
+            "value": 19,
+            "favourite": false,
+            "main": true
+          }
+        ]
+      },
+      {
+        "type": "button",
+        "elements": [
+          {
+            "id": 4,
+            "lua": true,
+            "waitForResponse": false,
+            "caption": "Toggle",
+            "name": "Button21",
+            "empty": false,
+            "msg": "local device = fibaro:getSelfId();\nlocal ipaddress = fibaro:getValue(device, \"IPAddress\");\nlocal port = fibaro:getValue(device, \"TCPPort\");\n\nFIBARO = Net.FHttp(ipaddress, port);\n\nlocal tradfriDeviceId = 65537;\n\nresponse = FIBARO:GET(\"/tradfri/device/\" .. tradfriDeviceId .. \"/toggle\");\n",
+            "buttonIcon": 0,
+            "favourite": false,
+            "main": true
+          }
+        ]
+      }
+    ]
+  },
+  "actions": {
+    "pressButton": 1,
+    "setSlider": 2,
+    "setProperty": 2
+  }
+}
