@@ -6,7 +6,7 @@
   "dependencies": {
     "config": "^1.26.1",
     "express": "^4.15.3",
-    "node-tradfri": "^0.1.2"
+    "node-tradfri-argon": "git@github.com:GonZOO82/node-tradfri-argon.git"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
