@@ -1,10 +1,12 @@
 'use strict';
 
 var config = require("config");
-const tradfri = require('node-tradfri').create({
+const tradfri = require('node-tradfri-argon').create({
     coapClientPath: config.coapClientPath,
     securityId: config.securityId,
-    hubIpAddress: config.ip
+    identity: config.identity,
+    hubIpAddress: config.hubIpAddress,
+    preshared_key: config.preshared_key
 });
 
 exports.getDeviceIds = function (req, res) {
